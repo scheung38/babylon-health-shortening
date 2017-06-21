@@ -4,6 +4,7 @@ from sqlite3 import OperationalError
 import string
 import sqlite3
 import json
+import requests
 
 try:
     from urllib.parse import urlparse  # Python 3
@@ -66,8 +67,8 @@ def toBase10(num, b=62):
     return res
 
 
-@app.route('/')
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/shorten_url')
+@app.route('/shorten_url', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         original_url = str_encode(request.form.get('url'))
@@ -83,7 +84,10 @@ def home():
             )
             encoded_string = toBase62(res.lastrowid)
 
-        return render_template('home.html', short_url=host + encoded_string)
+        # return render_template('home.html', short_url=host + encoded_string)
+        # return json.dumps({"Status code": r.status_code, "response_body": {"shortened_url": r.encoded_string}}))
+        return json.dumps({"Status code": 201, "response_body": {"shortened_url": host + encoded_string}})
+
     return render_template('home.html')
 
 
