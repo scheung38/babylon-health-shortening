@@ -4,11 +4,6 @@ from sqlite3 import OperationalError
 import string
 import sqlite3
 import json
-import requests
-import urllib
-
-# urllib.urlopen
-
 
 try:
     from urllib.parse import urlparse  # Python 3
@@ -80,11 +75,9 @@ def home():
 
         if original_url == ' ':
             url = 'http://' + original_url
-            # r = make_requests(url, original_url)
 
         else:
             url = original_url
-            # r = make_requests(url, original_url)
 
         with sqlite3.connect('urls.db') as conn:
             cursor = conn.cursor()
@@ -97,12 +90,6 @@ def home():
         return json.dumps({"Status code": 201, "response_body": {"shortened_url": host + encoded_string}})
 
     return render_template('home.html')
-
-
-def make_requests(url, original_url):
-    headers = {'content-type': 'application/json'}
-    body = {'url': original_url}
-    return requests.post(url, data=json.dumps(body), headers=headers)
 
 
 @app.route('/<short_url>')
