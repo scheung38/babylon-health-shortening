@@ -43,11 +43,11 @@ Response:
 
 - To generate initial database
 
-$ sqlite3 urls.db
+    $ sqlite3 urls.db
 
-$ pip install -r requirements.txt
+    $ pip install -r requirements.txt
 
-$ python main.py
+    $ python main.py
 
 For scaling, this is going to be deployed to AWS ECR via Docker and Kubernetes.
  
@@ -55,14 +55,14 @@ For scaling, this is going to be deployed to AWS ECR via Docker and Kubernetes.
 
 Run the following command to build the docker image babylon-health-shortening from web directory
 
-$ docker build -t babylon-health-shortening:latest .
+    $ docker build -t babylon-health-shortening:latest .
 
 - Run the Docker Container
 
-$ docker run -d -p 5000:5000 babylon-health-shortening
+    $ docker run -d -p 5000:5000 babylon-health-shortening
 
 You can find the container runtime details as shown below
-$ docker ps -a
+    $ docker ps -a
 
 
 CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS                      PORTS                                                                                         NAMES
