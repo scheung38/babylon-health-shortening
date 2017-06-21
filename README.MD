@@ -41,6 +41,9 @@ Response:
 
 `http://www.your_service.com/ouoYFY48` -> <html><body> hello world </body> </html>
 
+- Initially it shortened url will be just a single value as not many URLs has been registered yet,
+but as time goes by, the generated URL will become longer
+
 - To generate initial database
 
     $ sqlite3 urls.db

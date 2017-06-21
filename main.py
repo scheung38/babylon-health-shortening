@@ -5,6 +5,10 @@ import string
 import sqlite3
 import json
 import requests
+import urllib
+
+# urllib.urlopen
+
 
 try:
     from urllib.parse import urlparse  # Python 3
@@ -67,15 +71,21 @@ def toBase10(num, b=62):
     return res
 
 
-@app.route('/shorten_url')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/shorten_url', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         original_url = str_encode(request.form.get('url'))
-        if urlparse(original_url).scheme == '':
+        print(type(original_url))  # <class 'bytes'>
+
+        if original_url == ' ':
             url = 'http://' + original_url
+            # r = make_requests(url, original_url)
+
         else:
             url = original_url
+            # r = make_requests(url, original_url)
+
         with sqlite3.connect('urls.db') as conn:
             cursor = conn.cursor()
             res = cursor.execute(
@@ -84,11 +94,15 @@ def home():
             )
             encoded_string = toBase62(res.lastrowid)
 
-        # return render_template('home.html', short_url=host + encoded_string)
-        # return json.dumps({"Status code": r.status_code, "response_body": {"shortened_url": r.encoded_string}}))
         return json.dumps({"Status code": 201, "response_body": {"shortened_url": host + encoded_string}})
 
     return render_template('home.html')
+
+
+def make_requests(url, original_url):
+    headers = {'content-type': 'application/json'}
+    body = {'url': original_url}
+    return requests.post(url, data=json.dumps(body), headers=headers)
 
 
 @app.route('/<short_url>')
