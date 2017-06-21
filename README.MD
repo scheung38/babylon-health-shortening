@@ -65,5 +65,3 @@ You can find the container runtime details as shown below
     $ docker ps -a
 
 
-CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS                      PORTS                                                                                         NAMES
-21f772cd8149        babylon-health-shortening               "python app.py"          11 seconds ago      Exited (2) 10 seconds ago       
